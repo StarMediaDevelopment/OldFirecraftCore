@@ -1,6 +1,10 @@
 package net.firecraftmc.core.api.networking;
 
+import net.firecraftmc.core.api.networking.packets.FirecraftHeartbeatPacket;
+import net.firecraftmc.core.api.networking.packets.FirecraftPacket;
+
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
@@ -23,16 +27,22 @@ public class FirecraftClientSocket extends FirecraftSocket {
             this.socket = new Socket(host, port);
         } catch (IOException e) {}
     }
+    
+    public void sendPacket(FirecraftPacket packet) {
+        try (ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+            out.writeObject(packet);
+        } catch (IOException e) {}
+    }
 
     public void run() {
-        while (true) {
+        while (isActive()) {
             if (System.currentTimeMillis() >= (lastHeartbeat + HEARTBEAT)) {
-                try {
-                    socket.getOutputStream().write(0);
-                } catch (IOException e) {
-                    connect(); //Will try to connect again as this is an indicator that the connection was closed
-                }
+                sendPacket(new FirecraftHeartbeatPacket(System.currentTimeMillis()));
             }
         }
+    }
+
+    public long getLastHeartbeat() {
+        return lastHeartbeat;
     }
 }
