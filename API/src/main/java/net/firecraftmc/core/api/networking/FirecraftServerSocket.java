@@ -1,6 +1,7 @@
 package net.firecraftmc.core.api.networking;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -13,9 +14,11 @@ public class FirecraftServerSocket extends Thread {
     private ServerSocket serverSocket;
     
     private List<FirecraftHandlerSocket> handlers = Collections.synchronizedList(new ArrayList<>());
-    public FirecraftServerSocket(int port) {
+    public FirecraftServerSocket(String host, int port) {
         try {
-            this.serverSocket = new ServerSocket(port);
+            this.serverSocket = new ServerSocket();
+            InetSocketAddress address = new InetSocketAddress(host, port);
+            this.serverSocket.bind(address);
         } catch (IOException e) {}
     }
 
@@ -28,6 +31,10 @@ public class FirecraftServerSocket extends Thread {
                 handler.start();
             } catch (IOException e) {}
         }
+    }
+    
+    public boolean isConnected() {
+        return false; //TODO
     }
 
     public List<FirecraftHandlerSocket> getHandlers() {

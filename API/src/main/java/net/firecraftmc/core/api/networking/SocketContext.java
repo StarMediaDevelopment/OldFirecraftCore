@@ -1,4 +1,5 @@
 package net.firecraftmc.core.api.networking;
 
-public interface PacketListener {
+public enum SocketContext {
+    SERVER, CLIENT
 }
