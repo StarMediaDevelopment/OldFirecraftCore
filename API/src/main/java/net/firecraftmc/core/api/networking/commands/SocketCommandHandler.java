@@ -5,9 +5,29 @@ import java.util.Collections;
 import java.util.List;
 
 public class SocketCommandHandler {
-    private List<SocketCommandExecutor> executors = Collections.synchronizedList(new ArrayList<>());
     private List<SocketCommand> commands = Collections.synchronizedList(new ArrayList<>());
-    
+
+    public SocketCommandHandler() {
+
+    }
+
+    public SocketCommand getCommand(String name) {
+        for (SocketCommand cmd : commands) {
+            if (cmd.getName().equalsIgnoreCase(name)) {
+                return cmd;
+            } else {
+                if (cmd.getAliases() != null) {
+                    for (String alias : cmd.getAliases()) {
+                        if (alias.equalsIgnoreCase(name)) {
+                            return cmd;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void addCommand(Object object) {
         if (object instanceof SocketCommand) {
             commands.add((SocketCommand) object);
@@ -19,40 +39,21 @@ public class SocketCommandHandler {
             }
         }
     }
-    
-    public void addCommandExecutor(SocketCommandExecutor executor) {
-        this.executors.add(executor);
-    }
 
     public void handleCommandInput(String message) {
         String[] messageSplit = message.split(" ");
-        SocketCommand command = null;
         String server;
         String[] args;
         if (messageSplit.length < 3)
             return;
-        cmdLoop:
-        for (SocketCommand cmd : commands) {
-            if (cmd.getName().equalsIgnoreCase(messageSplit[0])) {
-                command = cmd;
-                break;
-            } else {
-                if (cmd.getAliases() != null) {
-                    for (String alias : cmd.getAliases()) {
-                        if (alias.equalsIgnoreCase(messageSplit[0])) {
-                            command = cmd;
-                            break cmdLoop;
-                        }
-                    }
-                }
-            }
-        }
+        SocketCommand command = getCommand(messageSplit[0]);
         server = messageSplit[1];
         args = new String[messageSplit.length - 2];
         System.arraycopy(messageSplit, 2, args, 0, args.length);
-        if (command == null) return;
-        for (SocketCommandExecutor executor : executors) {
-            executor.onCommand(command, server, args);
+        if (command == null)
+            return;
+        if (command.getExecutor() != null) {
+            command.getExecutor().onCommand(command, server, args);
         }
     }
 }
