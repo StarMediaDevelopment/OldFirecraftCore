@@ -1,6 +1,7 @@
 package net.firecraftmc.core.api;
 
 import com.moandjiezana.toml.Toml;
+import com.moandjiezana.toml.TomlWriter;
 import com.starmediadev.data.Context;
 import com.starmediadev.data.StarData;
 import com.starmediadev.data.manager.DatabaseManager;
@@ -12,6 +13,7 @@ import net.firecraftmc.core.api.networking.manager.ServerSocketManager;
 import net.firecraftmc.core.api.networking.manager.SocketManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class FirecraftAPI {
@@ -24,6 +26,10 @@ public class FirecraftAPI {
     
     private static File storageFolder;
 
+    public static void main(String[] args) {
+        init(StarData.createLogger(FirecraftAPI.class), new File("./"));
+    }
+
     public static void init(Logger logger, File folder) {
         FirecraftAPI.storageFolder = folder;
         
@@ -31,7 +37,26 @@ public class FirecraftAPI {
             storageFolder.mkdirs();
         }
 
-        Toml toml = new Toml().read(new File(storageFolder + File.separator + "firecraftconfig.toml"));
+        File configFile = new File(storageFolder + File.separator + "firecraftconfig.toml");
+        if (!configFile.exists()) {
+            try {
+                configFile.createNewFile();
+
+                TomlWriter writer = new TomlWriter.Builder().indentValuesBy(2).indentTablesBy(4).padArrayDelimitersBy(3).build();
+
+                Config config = new Config();
+                try {
+                    writer.write(config, configFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Toml toml = new Toml().read(configFile);
+
         String rawContext = toml.getString("socket.context");
         SocketContext context;
         try {
@@ -45,6 +70,9 @@ public class FirecraftAPI {
             socketManager = new ServerSocketManager();
         } else if (context == SocketContext.CLIENT) {
             socketManager = new ClientSocketManager();
+        } else {
+            logger.severe("Could not find a valid socket context");
+            return;
         }
         
         socketCommandHandler = new SocketCommandHandler();
@@ -74,5 +102,20 @@ public class FirecraftAPI {
     
     public static File getStorageFolder() {
         return storageFolder;
+    }
+
+    static class DatabaseConfig {
+        String host = "hostname";
+        String username = "username";
+        String database = "database", password = "password", port = "3306";
+    }
+
+    static class SocketConfig {
+        String context = "UNKNOWN", host = "localhost", port = "1000";
+    }
+
+    static class Config {
+        SocketConfig socket = new SocketConfig();
+        DatabaseConfig database = new DatabaseConfig();
     }
 }
