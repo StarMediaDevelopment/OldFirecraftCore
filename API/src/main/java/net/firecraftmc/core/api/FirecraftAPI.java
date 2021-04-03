@@ -31,6 +31,7 @@ public class FirecraftAPI {
     }
 
     public static void init(Logger logger, File folder) {
+        logger.info("Loading FirecraftAPI");
         FirecraftAPI.storageFolder = folder;
         
         if (!storageFolder.exists()) {
@@ -53,6 +54,8 @@ public class FirecraftAPI {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            logger.warning("Generated a new config file as one did not exist. Please configure and try again.");
+            return;
         }
 
         Toml toml = new Toml().read(configFile);
@@ -77,6 +80,7 @@ public class FirecraftAPI {
         
         socketCommandHandler = new SocketCommandHandler();
         socketManager.init(toml.getString("socket.host"), Integer.parseInt(toml.getString("socket.port")));
+        logger.info("Initiated a socket with the context " + context.name());
 
         FirecraftAPI.logger = logger;
         starData = new StarData(Context.SINGLE, logger);
@@ -90,6 +94,7 @@ public class FirecraftAPI {
         
         databaseManager.createDatabase(properties);
         databaseManager.setup();
+        logger.info("Initiated database connection and setup.");
     }
 
     public static SocketCommandHandler getSocketCommandHandler() {

@@ -21,12 +21,8 @@ public class FirecraftClientSocket extends FirecraftSocket {
     public void connect() {
         try {
             this.socket = new Socket(host, port);
-        } catch (IOException e) {}
-    }
-    
-    public void run() {
-        while (isActive()) {
-            
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

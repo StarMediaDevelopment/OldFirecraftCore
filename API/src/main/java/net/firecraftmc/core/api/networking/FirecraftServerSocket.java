@@ -29,7 +29,15 @@ public class FirecraftServerSocket extends Thread {
                 FirecraftHandlerSocket handler = new FirecraftHandlerSocket(socket, this);
                 this.handlers.add(handler);
                 handler.start();
-            } catch (IOException e) {}
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
