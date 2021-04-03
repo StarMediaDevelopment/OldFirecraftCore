@@ -29,7 +29,8 @@ public class SocketCommand {
         return executor;
     }
 
-    public void setExecutor(SocketCommandExecutor executor) {
+    public Object setExecutor(SocketCommandExecutor executor) {
         this.executor = executor;
+        return this;
     }
 }

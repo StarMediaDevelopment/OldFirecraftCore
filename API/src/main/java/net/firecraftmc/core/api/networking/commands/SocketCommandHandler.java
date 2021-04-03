@@ -1,5 +1,9 @@
 package net.firecraftmc.core.api.networking.commands;
 
+import net.firecraftmc.core.api.FirecraftAPI;
+import net.firecraftmc.core.api.networking.FirecraftSocket;
+import net.firecraftmc.core.api.networking.manager.SocketManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +12,11 @@ public class SocketCommandHandler {
     private List<SocketCommand> commands = Collections.synchronizedList(new ArrayList<>());
 
     public SocketCommandHandler() {
-
+        addCommand(new SocketCommand("heartbeat", null, "Command to periodically check if a socket connection is active.").setExecutor((cmd, sender, args) -> {
+            SocketManager socketManager = FirecraftAPI.getSocketManager();
+            FirecraftSocket socket = socketManager.getSocket(sender);
+            socket.setLastHeartbeat(System.currentTimeMillis());
+        }));
     }
 
     public SocketCommand getCommand(String name) {

@@ -12,9 +12,15 @@ public abstract class FirecraftSocket extends Thread {
     
     protected Socket socket;
     protected AtomicBoolean active;
+    protected String socketName;
+    protected long lastHeartbeat = 0;
 
     public boolean isActive() {
         return active.get();
+    }
+
+    public String getSocketName() {
+        return socketName;
     }
 
     public void run() {
@@ -39,5 +45,13 @@ public abstract class FirecraftSocket extends Thread {
 
     public void setActive(boolean active) {
         this.active.set(active);
+    }
+
+    public long getLastHeartbeat() {
+        return lastHeartbeat;
+    }
+
+    public void setLastHeartbeat(long lastHeartbeat) {
+        this.lastHeartbeat = lastHeartbeat;
     }
 }

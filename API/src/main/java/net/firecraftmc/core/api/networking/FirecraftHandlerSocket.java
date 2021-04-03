@@ -6,14 +6,9 @@ import java.net.Socket;
 public class FirecraftHandlerSocket extends FirecraftSocket {
 
     private final FirecraftServerSocket serverSocket;
-    private long lastHeartbeat = 0;
 
     public FirecraftHandlerSocket(Socket socket, FirecraftServerSocket serverSocket) {
         this.socket = socket;
         this.serverSocket = serverSocket;
-    }
-
-    public long getLastHeartbeat() {
-        return lastHeartbeat;
     }
 }
