@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>core-parent</artifactId>
         <groupId>net.firecraftmc.core</groupId>
+        <artifactId>core-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core-api</artifactId>
-    <version>${project.parent.version}</version>
+    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -69,8 +69,9 @@
         <dependency>
             <groupId>net.firecraftmc.core</groupId>
             <artifactId>core-parent</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>compile</scope>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+            <type>pom</type>
         </dependency>
     </dependencies>
 </project>

@@ -20,6 +20,7 @@ public class FirecraftServerSocket extends Thread {
             InetSocketAddress address = new InetSocketAddress(host, port);
             this.serverSocket.bind(address);
         } catch (IOException e) {}
+        setDaemon(true);
     }
 
     public void run() {

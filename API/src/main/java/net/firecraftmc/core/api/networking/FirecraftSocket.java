@@ -4,6 +4,7 @@ import net.firecraftmc.core.api.FirecraftAPI;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -21,6 +22,16 @@ public abstract class FirecraftSocket extends Thread {
 
     public String getSocketName() {
         return socketName;
+    }
+    
+    public void sendCommand(String command) {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            out.writeObject(command);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void run() {
