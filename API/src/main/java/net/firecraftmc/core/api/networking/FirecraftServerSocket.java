@@ -10,16 +10,18 @@ import java.util.List;
 
 //This represents a server socket that is running to receive connections from other servers, there should be only one running
 public class FirecraftServerSocket extends Thread {
-    
+
     private ServerSocket serverSocket;
-    
+
     private List<FirecraftHandlerSocket> handlers = Collections.synchronizedList(new ArrayList<>());
+
     public FirecraftServerSocket(String host, int port) {
         try {
             this.serverSocket = new ServerSocket();
             InetSocketAddress address = new InetSocketAddress(host, port);
             this.serverSocket.bind(address);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+        }
         setDaemon(true);
     }
 
@@ -41,12 +43,18 @@ public class FirecraftServerSocket extends Thread {
             e.printStackTrace();
         }
     }
-    
+
     public boolean isConnected() {
         return false; //TODO
     }
 
     public List<FirecraftHandlerSocket> getHandlers() {
         return handlers;
+    }
+
+    public void sendCommand(String command) {
+        for (FirecraftHandlerSocket handler : handlers) {
+            handler.sendCommand(command);
+        }
     }
 }

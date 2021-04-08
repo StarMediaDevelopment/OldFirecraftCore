@@ -16,6 +16,7 @@ public class SocketCommandHandler {
             SocketManager socketManager = FirecraftAPI.getSocketManager();
             FirecraftSocket socket = socketManager.getSocket(sender);
             socket.setLastHeartbeat(System.currentTimeMillis());
+            FirecraftAPI.getLogger().info("Socket Heartbeat " + sender);
         }));
     }
 

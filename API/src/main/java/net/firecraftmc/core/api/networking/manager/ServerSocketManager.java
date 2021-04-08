@@ -1,8 +1,12 @@
 package net.firecraftmc.core.api.networking.manager;
 
+import com.starmediadev.utils.Utils;
 import net.firecraftmc.core.api.networking.FirecraftHandlerSocket;
 import net.firecraftmc.core.api.networking.FirecraftServerSocket;
 import net.firecraftmc.core.api.networking.FirecraftSocket;
+import net.firecraftmc.core.api.networking.commands.SocketCommand;
+
+import java.util.Arrays;
 
 public class ServerSocketManager extends SocketManager {
     
@@ -20,5 +24,9 @@ public class ServerSocketManager extends SocketManager {
             }
         }
         return null;
+    }
+
+    public void sendSocketCommand(SocketCommand cmd, String sender, String[] args) {
+        socket.sendCommand(cmd.getName() + " " + sender + " " + Utils.join(Arrays.asList(args), " "));
     }
 }

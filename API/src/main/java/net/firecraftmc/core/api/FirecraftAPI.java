@@ -25,7 +25,7 @@ public class FirecraftAPI {
     private static SocketCommandHandler socketCommandHandler;
     
     private static File storageFolder;
-
+    
     public static void main(String[] args) {
         init(StarData.createLogger(FirecraftAPI.class), new File("./"));
     }
@@ -107,6 +107,10 @@ public class FirecraftAPI {
     
     public static File getStorageFolder() {
         return storageFolder;
+    }
+
+    public static Logger getLogger() {
+        return logger;
     }
 
     static class DatabaseConfig {
