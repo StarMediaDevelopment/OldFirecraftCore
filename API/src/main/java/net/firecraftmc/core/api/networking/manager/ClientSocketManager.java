@@ -15,10 +15,12 @@ public class ClientSocketManager extends SocketManager {
     
     public void init(String host, int port) {
         this.socket = new FirecraftClientSocket(host, port);
-        this.socket.setDaemon(true);
+        this.socket.connect();
+        this.socket.setDaemon(false);
+        System.out.println("Connected to the socket");
         this.socket.start();
-        
-        new Thread(() -> {
+
+        Thread thread = new Thread(() -> {
             while (socket.isActive()) {
                 SocketCommand heartbeatCmd = FirecraftAPI.getSocketCommandHandler().getCommand("heartbeat");
                 sendSocketCommand(heartbeatCmd, "test", null);
@@ -28,7 +30,9 @@ public class ClientSocketManager extends SocketManager {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        thread.setDaemon(false);
+        thread.start();
     }
 
     public FirecraftSocket getSocket(String name) {
@@ -36,6 +40,10 @@ public class ClientSocketManager extends SocketManager {
     }
 
     public void sendSocketCommand(SocketCommand cmd, String sender, String[] args) {
-        socket.sendCommand(cmd.getName() + " " + sender + " " + Utils.join(Arrays.asList(args), " "));
+        String output = cmd.getName() + " " + sender;
+        if (args != null) {
+            output += " " + Utils.join(Arrays.asList(args), " "); 
+        }
+        socket.sendCommand(output);
     }
 }

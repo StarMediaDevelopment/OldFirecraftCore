@@ -31,6 +31,7 @@ public class FirecraftAPI {
     }
 
     public static void init(Logger logger, File folder) {
+        FirecraftAPI.logger = logger;
         logger.info("Loading FirecraftAPI");
         FirecraftAPI.storageFolder = folder;
         

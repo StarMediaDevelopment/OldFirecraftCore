@@ -21,14 +21,15 @@ public class FirecraftServerSocket extends Thread {
             InetSocketAddress address = new InetSocketAddress(host, port);
             this.serverSocket.bind(address);
         } catch (IOException e) {
+            e.printStackTrace();
         }
-        setDaemon(true);
     }
 
     public void run() {
         while (!serverSocket.isClosed()) {
             try {
                 Socket socket = serverSocket.accept();
+                System.out.println("Received connection from " + socket.getInetAddress());
                 FirecraftHandlerSocket handler = new FirecraftHandlerSocket(socket, this);
                 this.handlers.add(handler);
                 handler.start();

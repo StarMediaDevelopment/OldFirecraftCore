@@ -50,6 +50,7 @@ public class SocketCommandHandler {
     }
 
     public void handleCommandInput(String message) {
+        FirecraftAPI.getLogger().info("Handling command input " + message);
         String[] messageSplit = message.split(" ");
         String server;
         String[] args;

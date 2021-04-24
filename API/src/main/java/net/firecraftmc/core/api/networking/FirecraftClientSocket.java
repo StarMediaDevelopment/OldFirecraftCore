@@ -1,5 +1,7 @@
 package net.firecraftmc.core.api.networking;
 
+import net.firecraftmc.core.api.FirecraftAPI;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
@@ -19,8 +21,10 @@ public class FirecraftClientSocket extends FirecraftSocket {
     }
     
     public void connect() {
+        FirecraftAPI.getLogger().info("Attempting a socket connection to " + host + ":" + port);
         try {
             this.socket = new Socket(host, port);
+            active.set(true);
         } catch (IOException e) {
             e.printStackTrace();
         }

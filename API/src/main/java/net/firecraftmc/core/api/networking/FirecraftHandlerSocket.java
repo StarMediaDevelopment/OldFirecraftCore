@@ -10,5 +10,6 @@ public class FirecraftHandlerSocket extends FirecraftSocket {
     public FirecraftHandlerSocket(Socket socket, FirecraftServerSocket serverSocket) {
         this.socket = socket;
         this.serverSocket = serverSocket;
+        active.set(true);
     }
 }

@@ -1,16 +1,24 @@
 package net.firecraftmc.core.api.ranks;
 
-import lombok.AllArgsConstructor;
-
 import java.util.Objects;
 
-@AllArgsConstructor
 public class Rank implements Comparable<Rank> {
     private String name, baseColor, chatColor;
     private boolean hasPrefix;
     private int voteWeight;
     private double coinMultiplier, chatCooldown;
     private int weight;
+
+    public Rank(String name, String baseColor, String chatColor, boolean hasPrefix, int voteWeight, double coinMultiplier, double chatCooldown, int weight) {
+        this.name = name;
+        this.baseColor = baseColor;
+        this.chatColor = chatColor;
+        this.hasPrefix = hasPrefix;
+        this.voteWeight = voteWeight;
+        this.coinMultiplier = coinMultiplier;
+        this.chatCooldown = chatCooldown;
+        this.weight = weight;
+    }
 
     public String getPrefix() {
         if (hasPrefix) {
