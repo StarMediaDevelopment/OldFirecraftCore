@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class FirecraftServer {
     private int id;
-    private String type, name;
+    private String name;
     private UUID uniqueId;
+    private ServerType type;
 }
