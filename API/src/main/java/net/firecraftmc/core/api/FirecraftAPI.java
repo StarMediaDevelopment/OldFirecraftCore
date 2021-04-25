@@ -11,6 +11,7 @@ import net.firecraftmc.core.api.networking.commands.SocketCommandHandler;
 import net.firecraftmc.core.api.networking.manager.ClientSocketManager;
 import net.firecraftmc.core.api.networking.manager.ServerSocketManager;
 import net.firecraftmc.core.api.networking.manager.SocketManager;
+import net.firecraftmc.core.api.universe.FirecraftUniverse;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class FirecraftAPI {
     private static SocketCommandHandler socketCommandHandler;
     
     private static File storageFolder;
+    
+    private FirecraftUniverse universe;
     
     public static void main(String[] args) {
         init(StarData.createLogger(FirecraftAPI.class), new File("./"));

@@ -1,4 +1,4 @@
-package net.firecraftmc.core.api.server;
+package net.firecraftmc.core.api.universe;
 
 public interface ServerType {
     String getName();
