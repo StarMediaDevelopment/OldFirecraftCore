@@ -11,7 +11,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core-spigot</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
+    <version>spigot</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -48,14 +49,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <outputDirectory>${jar.output}</outputDirectory>
-                </configuration>
-            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -64,19 +57,13 @@
             </resource>
         </resources>
     </build>
-    <repositories>
-        <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
     
     <dependencies>
         <dependency>
             <groupId>net.firecraftmc.core</groupId>
             <artifactId>core-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>api</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

@@ -21,6 +21,8 @@
         <module>Bungee</module>
         <module>Discord</module>
         <module>Cloud</module>
+        <module>Socket</module>
+        <module>Main</module>
     </modules>
 
     <name>Core</name>
@@ -35,6 +37,30 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <outputDirectory>${jar.output}</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -57,6 +83,10 @@
             <id>TimoCloud-API</id>
             <url>https://maven.timo.cloud/repository/TimoCloud-API/</url>
         </repository>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -73,15 +103,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.moandjiezana.toml</groupId>
-            <artifactId>toml4j</artifactId>
-            <version>0.7.2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.6</version>
+            <version>2.2.4</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

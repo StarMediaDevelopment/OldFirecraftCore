@@ -1,7 +1,14 @@
 package net.firecraftmc.core.cloud;
 
-public class FirecraftCoreCloud {
-    public static void main(String[] args) {
-       
+import net.firecraftmc.core.api.module.FirecraftModule;
+
+public class FirecraftCoreCloud implements FirecraftModule {
+
+    public void onEnable() {
+        
+    }
+
+    public void onDisable() {
+
     }
 }
