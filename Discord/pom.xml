@@ -3,24 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>net.firecraftmc.core</groupId>
         <artifactId>core-parent</artifactId>
+        <groupId>net.firecraftmc.core</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>core-api</artifactId>
+    <artifactId>core-discord</artifactId>
     <packaging>pom</packaging>
-    <version>${project.parent.version}</version>
+    
+    <name>Discord</name>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <java.version>1.8</java.version>
     </properties>
-    
-    <name>API</name>
 
     <build>
         <plugins>
@@ -49,14 +47,14 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <version>2.3.1</version>-->
-<!--                <configuration>-->
-<!--                    <outputDirectory>${jar.output}</outputDirectory>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <outputDirectory>${jar.output}</outputDirectory>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -65,14 +63,27 @@
             </resource>
         </resources>
     </build>
-
+    
+    <repositories>
+        <repository>
+            <id>dv8tion</id>
+            <name>m2-dv8tion</name>
+            <url>https://m2.dv8tion.net/releases</url>
+        </repository>
+    </repositories>
+    
     <dependencies>
         <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>4.2.1_261</version>
+        </dependency>
+        <dependency>
             <groupId>net.firecraftmc.core</groupId>
-            <artifactId>core-parent</artifactId>
+            <artifactId>core-api</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
-            <type>pom</type>
         </dependency>
     </dependencies>
+
 </project>
