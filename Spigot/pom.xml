@@ -13,12 +13,6 @@
     <artifactId>core-spigot</artifactId>
     <packaging>jar</packaging>
     <version>spigot</version>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <java.version>1.8</java.version>
-    </properties>
     
     <name>Spigot</name>
 

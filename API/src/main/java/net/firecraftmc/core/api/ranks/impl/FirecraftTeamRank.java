@@ -4,7 +4,7 @@ import net.firecraftmc.core.api.ranks.Rank;
 
 public class FirecraftTeamRank extends Rank {
     public FirecraftTeamRank() {
-        super("Firecraft Team", "&4", "&6", true, 5, 5, 0, 1000000);
+        super("Firecraft Team", "#AA0000", "&6", true, 5, 5, 0, 1000000);
     }
 
     public String getPrefix() {

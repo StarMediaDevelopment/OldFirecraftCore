@@ -4,6 +4,6 @@ import net.firecraftmc.core.api.ranks.Rank;
 
 public class DeveloperRank extends Rank {
     public DeveloperRank() {
-        super("Developer", "&9", "&f", true, 4, 4, 0, 100000);
+        super("Developer", "#3c40f0", "&f", true, 4, 4, 0, 100000);
     }
 }

@@ -4,6 +4,6 @@ import net.firecraftmc.core.api.ranks.Rank;
 
 public class ModRank extends Rank {
     public ModRank() {
-        super("Mod", "&b", "&f", true, 4, 4, 0, 1000);
+        super("Mod", "#00aaaa", "&f", true, 4, 4, 0, 1000);
     }
 }

@@ -13,7 +13,7 @@ public class FirecraftServerSocket extends Thread {
 
     private ServerSocket serverSocket;
 
-    private List<FirecraftHandlerSocket> handlers = Collections.synchronizedList(new ArrayList<>());
+    private final List<FirecraftHandlerSocket> handlers = Collections.synchronizedList(new ArrayList<>());
 
     public FirecraftServerSocket(String host, int port) {
         try {

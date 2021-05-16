@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public abstract class FirecraftSocket extends Thread {
     
     protected Socket socket;
-    protected AtomicBoolean active = new AtomicBoolean();
+    protected final AtomicBoolean active = new AtomicBoolean();
     protected String socketName;
     protected long lastHeartbeat = 0;
 

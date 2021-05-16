@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public abstract class SocketManager {
     
-    protected ExecutorService executor = Executors.newFixedThreadPool(8);
+    protected final ExecutorService executor = Executors.newFixedThreadPool(8);
     
     public abstract void init(String host, int port);
     

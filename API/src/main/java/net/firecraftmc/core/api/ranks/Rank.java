@@ -3,11 +3,14 @@ package net.firecraftmc.core.api.ranks;
 import java.util.Objects;
 
 public class Rank implements Comparable<Rank> {
-    private String name, baseColor, chatColor;
-    private boolean hasPrefix;
-    private int voteWeight;
-    private double coinMultiplier, chatCooldown;
-    private int weight;
+    private final String name;
+    private final String baseColor;
+    private final String chatColor;
+    private final boolean hasPrefix;
+    private final int voteWeight;
+    private final double coinMultiplier;
+    private final double chatCooldown;
+    private final int weight;
 
     public Rank(String name, String baseColor, String chatColor, boolean hasPrefix, int voteWeight, double coinMultiplier, double chatCooldown, int weight) {
         this.name = name;

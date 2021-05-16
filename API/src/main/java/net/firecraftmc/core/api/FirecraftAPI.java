@@ -165,13 +165,17 @@ public class FirecraftAPI {
     }
 
     static class DatabaseConfig {
-        String host = "hostname";
-        String username = "username";
-        String database = "database", password = "password", port = "3306";
+        final String host = "hostname";
+        final String username = "username";
+        final String database = "database";
+        final String password = "password";
+        final String port = "3306";
     }
 
     static class SocketConfig {
-        String context = "UNKNOWN", host = "localhost", port = "1000";
+        final String context = "UNKNOWN";
+        final String host = "localhost";
+        final String port = "1000";
     }
     
     static class UniverseConfig {
@@ -179,8 +183,8 @@ public class FirecraftAPI {
     }
 
     static class Config {
-        SocketConfig socket = new SocketConfig();
-        DatabaseConfig database = new DatabaseConfig();
-        UniverseConfig universe = new UniverseConfig();
+        final SocketConfig socket = new SocketConfig();
+        final DatabaseConfig database = new DatabaseConfig();
+        final UniverseConfig universe = new UniverseConfig();
     }
 }

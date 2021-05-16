@@ -1,13 +1,13 @@
-package net.firecraftmc.core.api.networking.commands;
+package net.firecraftmc.core.api.framework.command;
 
-public class SocketCommand {
+public class Command {
     private final String name;
     private final String[] aliases;
     private final String description;
-    
-    private SocketCommandExecutor executor;
 
-    public SocketCommand(String name, String[] aliases, String description) {
+    private CommandExecutor executor;
+
+    public Command(String name, String[] aliases, String description) {
         this.name = name;
         this.aliases = aliases;
         this.description = description;
@@ -25,11 +25,11 @@ public class SocketCommand {
         return description;
     }
 
-    public SocketCommandExecutor getExecutor() {
+    public CommandExecutor getExecutor() {
         return executor;
     }
 
-    public Object setExecutor(SocketCommandExecutor executor) {
+    public Command setExecutor(CommandExecutor executor) {
         this.executor = executor;
         return this;
     }

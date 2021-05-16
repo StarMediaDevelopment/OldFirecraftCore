@@ -4,6 +4,6 @@ import net.firecraftmc.core.api.ranks.Rank;
 
 public class BuilderRank extends Rank {
     public BuilderRank() {
-        super("Builder", "&6", "&f", true, 4, 4, 0, 100000);
+        super("Builder", "#ebe26c", "&f", true, 4, 4, 0, 100000);
     }
 }

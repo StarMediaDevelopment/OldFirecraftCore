@@ -8,12 +8,12 @@ Represents the whole FirecraftMC Universe. This is per instance that this is run
 These are meant as representations of each and changes to the info doesn't actually change anything. 
  */
 public final class FirecraftUniverse {
-    private UniverseContext context;
+    private final UniverseContext context;
     private Set<FirecraftMinecraftNetwork> networks = new HashSet<>();
     private Set<FirecraftMinecraftServerGroup> groups = new HashSet<>();
     private Set<FirecraftMinecraftServer> servers = new HashSet<>();
     private Set<FirecraftMinecraftCloud> clouds = new HashSet<>();
-    private Set<FirecraftDiscordServer> discordBots = new HashSet<>();
+    private Set<FirecraftDiscordServer> discordServers = new HashSet<>();
 
     public FirecraftUniverse(UniverseContext context) {
         this.context = context;

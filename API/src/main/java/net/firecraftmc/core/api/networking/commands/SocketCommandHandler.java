@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class SocketCommandHandler {
-    private List<SocketCommand> commands = Collections.synchronizedList(new ArrayList<>());
+    private final List<SocketCommand> commands = Collections.synchronizedList(new ArrayList<>());
 
     public SocketCommandHandler() {
         addCommand(new SocketCommand("heartbeat", null, "Command to periodically check if a socket connection is active.").setExecutor((cmd, sender, args) -> {
