@@ -10,8 +10,7 @@ import java.nio.file.Paths;
 
 public class FirecraftCoreMain {
     public static void main(String[] args) {
-        System.setProperty("java.util.logging.manager", "org.apache.logging.log4j.jul.LogManager");
-        FirecraftAPI.load(StarData.createLogger(FirecraftAPI.class), Paths.get("./"));
+        FirecraftAPI.load(StarData.createLogger(FirecraftAPI.class), Paths.get(""));
         switch (FirecraftAPI.getUniverse().getContext()) {
             case SOCKET: FirecraftAPI.setModule(new FirecraftCoreSocket());
                 break;

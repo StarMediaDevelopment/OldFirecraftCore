@@ -13,7 +13,6 @@ public class MessageListener extends ListenerAdapter {
     }
 
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        System.out.println("Message received: " + event.getMessage().getContentRaw());
         main.getCommandManager().handleInput(new UserSender(event.getMember(), event.getTextChannel()), event.getMessage().getContentRaw());
     }
 }

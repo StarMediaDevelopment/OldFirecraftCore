@@ -20,7 +20,6 @@ public class FirecraftCoreDiscord implements FirecraftModule {
     private CommandManager commandManager = new CommandManager("!");
 
     public static void main(String[] args) {
-        new FirecraftCoreDiscord().onEnable();
     }
     
     public void onEnable() {
@@ -41,9 +40,7 @@ public class FirecraftCoreDiscord implements FirecraftModule {
         jda.getPresence().setStatus(OnlineStatus.ONLINE);
         
         commandManager.registerCommand(new Command("announce", null, "Announce a message to all servers!").setExecutor((sender, cmd, args) -> {
-            System.out.println("Handling announce command");
             if (sender instanceof UserSender userSender) {
-                System.out.println("Sender is a UserSender");
                 boolean fctRole = false;
                 for (Role role : userSender.getMember().getRoles()) {
                     if (role.getName().equalsIgnoreCase("Firecraft Team")) {
@@ -72,7 +69,6 @@ public class FirecraftCoreDiscord implements FirecraftModule {
                     }
                     
                     if (announcementsChannel == null) {
-                        System.out.println("Guild " + guild.getName() + " does not have an annoucements channel!");
                         continue;
                     }
                     

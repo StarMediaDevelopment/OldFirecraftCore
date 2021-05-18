@@ -13,27 +13,22 @@ public class CommandManager {
     }
 
     public void handleInput(CommandSender sender, String input) {
-        System.out.println("Handling command input");
         String[] split = input.split(" ");
         if (!(split.length > 0)) {
-            System.out.println("Not enough arguments");
             return;
         }
         String cmdName = split[0];
         if (cmdName.startsWith(starting_char)) {
             cmdName = cmdName.substring(1);
         } else {
-            System.out.println("Command does not start with starting character");
             return;
         }
 
         Command command = getCommand(cmdName);
         if (command == null) {
-            System.out.println("Command is null");
             return;
         }
         if (command.getExecutor() == null) {
-            System.out.println("Command executor is null");
             return;
         }
         String[] args;
@@ -43,7 +38,6 @@ public class CommandManager {
         } else {
             args = new String[0];
         }
-        System.out.println("Issuing the onCommand!");
         command.getExecutor().onCommand(sender, command, args);
     }
 

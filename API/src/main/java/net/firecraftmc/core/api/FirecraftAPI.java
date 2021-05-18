@@ -1,6 +1,7 @@
 package net.firecraftmc.core.api;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.starmediadev.data.Context;
 import com.starmediadev.data.StarData;
 import com.starmediadev.data.manager.DatabaseManager;
@@ -36,7 +37,7 @@ public class FirecraftAPI {
     private static Path storagePath;
 
     private static FirecraftUniverse universe;
-    
+
     private static FirecraftModule module;
 
     public static boolean load(Logger logger, Path folder) {
@@ -61,7 +62,7 @@ public class FirecraftAPI {
             logger.severe("Config file does not exist, creating it");
             try {
                 Files.createFile(configFile);
-                String defaultConfig = new Gson().toJson(new Config());
+                String defaultConfig = new GsonBuilder().setPrettyPrinting().create().toJson(new Config());
                 try (BufferedWriter writer = Files.newBufferedWriter(configFile, StandardCharsets.UTF_8)) {
                     writer.write(defaultConfig);
                     writer.flush();
@@ -75,13 +76,8 @@ public class FirecraftAPI {
 
         Config config;
         try (BufferedReader reader = Files.newBufferedReader(configFile, StandardCharsets.UTF_8)) {
-            String line = reader.readLine();
-            if (line == null) {
-                logger.severe("There is no configured settings");
-                return false;
-            }
-            logger.info(line);
-            config = new Gson().fromJson(line, Config.class); //TODO May need to read multiple lines
+            config = new Gson().fromJson(reader, Config.class);
+            System.out.println(config);
         } catch (Exception e) {
             logger.severe("Could not read the configuration file " + e.getMessage());
             return false;
@@ -100,6 +96,8 @@ public class FirecraftAPI {
             logger.severe("Could not get a context from the config file.");
             return false;
         }
+
+        logger.info("Socket Context: " + context);
 
         if (context == SocketContext.SERVER) {
             socketManager = new ServerSocketManager();
@@ -131,11 +129,11 @@ public class FirecraftAPI {
         logger.info("Setting up the FirecraftUniverse with the context " + universe.getContext().name());
         return true;
     }
-    
+
     public static void enable() {
         module.onEnable();
     }
-    
+
     public static void disable() {
         module.onDisable();
     }
@@ -165,26 +163,26 @@ public class FirecraftAPI {
     }
 
     static class DatabaseConfig {
-        final String host = "hostname";
-        final String username = "username";
-        final String database = "database";
-        final String password = "password";
-        final String port = "3306";
+        String host = "hostname";
+        String username = "username";
+        String database = "database";
+        String password = "password";
+        String port = "3306";
     }
 
     static class SocketConfig {
-        final String context = "UNKNOWN";
-        final String host = "localhost";
-        final String port = "1000";
+        String context = "UNKNOWN";
+        String host = "localhost";
+        String port = "1000";
     }
-    
+
     static class UniverseConfig {
-        String context;
+        String context = "UNKNOWN";
     }
 
     static class Config {
-        final SocketConfig socket = new SocketConfig();
-        final DatabaseConfig database = new DatabaseConfig();
-        final UniverseConfig universe = new UniverseConfig();
+        SocketConfig socket = new SocketConfig();
+        DatabaseConfig database = new DatabaseConfig();
+        UniverseConfig universe = new UniverseConfig();
     }
 }
