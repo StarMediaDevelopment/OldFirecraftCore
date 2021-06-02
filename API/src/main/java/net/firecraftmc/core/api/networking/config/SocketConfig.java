@@ -1,8 +1,8 @@
 package net.firecraftmc.core.api.networking.config;
 
-import com.starmediadev.data.model.IRecord;
+import com.starmediadev.data.model.IDataObject;
 
-public class SocketConfig implements IRecord {
+public class SocketConfig implements IDataObject {
     
     protected int id;
     protected String host;
