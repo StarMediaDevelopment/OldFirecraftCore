@@ -6,12 +6,9 @@ import com.starmediadev.data.Context;
 import com.starmediadev.data.StarData;
 import com.starmediadev.data.manager.DatabaseManager;
 import com.starmediadev.data.properties.SqlProperties;
+import com.starmediadev.networking.SocketContext;
+import com.starmediadev.networking.StarNetworking;
 import net.firecraftmc.core.api.module.FirecraftModule;
-import net.firecraftmc.core.api.networking.SocketContext;
-import net.firecraftmc.core.api.networking.commands.SocketCommandHandler;
-import net.firecraftmc.core.api.networking.manager.ClientSocketManager;
-import net.firecraftmc.core.api.networking.manager.ServerSocketManager;
-import net.firecraftmc.core.api.networking.manager.SocketManager;
 import net.firecraftmc.core.api.universe.FirecraftUniverse;
 import net.firecraftmc.core.api.universe.UniverseContext;
 
@@ -30,8 +27,6 @@ public class FirecraftAPI {
     private static StarData starData;
     private static DatabaseManager databaseManager;
     private static Logger logger;
-    private static SocketManager socketManager;
-    private static SocketCommandHandler socketCommandHandler;
 
     private static File storageFolder;
     private static Path storagePath;
@@ -97,20 +92,7 @@ public class FirecraftAPI {
             return false;
         }
 
-        logger.info("Socket Context: " + context);
-
-        if (context == SocketContext.SERVER) {
-            socketManager = new ServerSocketManager();
-        } else if (context == SocketContext.CLIENT) {
-            socketManager = new ClientSocketManager();
-        } else {
-            logger.severe("Could not find a valid socket context");
-            return false;
-        }
-
-        socketCommandHandler = new SocketCommandHandler();
-        socketManager.init(config.socket.host, Integer.parseInt(config.socket.port));
-        logger.info("Initiated a socket with the context " + context.name());
+        StarNetworking.init(context, config.socket.host, Integer.parseInt(config.socket.port), logger);
 
         starData = new StarData(Context.SINGLE, logger);
         databaseManager = starData.getDatabaseManager();
@@ -140,14 +122,6 @@ public class FirecraftAPI {
 
     public static FirecraftUniverse getUniverse() {
         return universe;
-    }
-
-    public static SocketCommandHandler getSocketCommandHandler() {
-        return socketCommandHandler;
-    }
-
-    public static SocketManager getSocketManager() {
-        return socketManager;
     }
 
     public static File getStorageFolder() {
